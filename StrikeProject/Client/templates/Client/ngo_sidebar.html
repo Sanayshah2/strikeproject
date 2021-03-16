@@ -1,0 +1,156 @@
+
+<style>
+    .sidebar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color:lightgray;
+  position: fixed;
+  height: 760px;
+  overflow: auto;
+}
+.alert-custom{
+  background-color: lightgray;
+  color:black;
+    }
+/* Sidebar links */
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+  font-size: 18px;
+  
+}
+.sidebar h4 {
+  display: block;
+  color: white;
+  padding: 15px;
+  background-color: #0D98BA;
+}
+
+/* Active/current link */
+.sidebar a.active {
+  background-color: white;
+  color: #0D98BA;
+  
+}
+
+/* Links on mouse-over */
+.sidebar a:hover:not(.active) {
+  background-color: white;
+  color: #0D98BA;
+  
+  
+}
+
+/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
+div.content {
+  margin-left: 200px;
+  padding: 1px 16px;
+  
+}
+
+/* On screens that are less than 700px wide, make the sidebar into a topbar */
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    background-color:white;
+  }
+  .sidebar a {
+    float: left;
+    padding: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
+    border:1px solid rgb(99, 99, 99);
+    background-color: rgb(99, 99, 99);
+  color: whitesmoke;
+    border-radius: 20px;
+    font-size: 12px;
+    margin:5px;
+    }
+  div.content {margin-left: 0;}
+
+.sidebar a.active{
+  border:1px solid #0D98BA;
+  background-color:#0D98BA ;
+  color: white;
+  border-radius: 20px;
+  padding: 10px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+/* Links on mouse-over */
+.sidebar a:hover:not(.active) {
+  background-color:#0D98BA ;
+  color: white;
+  
+}
+}
+
+
+</style>
+<div class="" style="">
+  <div class="sidebar">
+      <h4 >Welcome, {{user.username}}</h4>
+
+      <a  href={% url 'ClientDashboard' %} class='{{dashboard}}'>Dashboard</a>
+      <!-- <a href={% url 'home' %} class='{{addcomplain_active}}'>Add Requirement</a> -->
+      <a href={% url 'OrderHistory' %} class='{{orderHistory}}'>Order History</a>
+      <a href={% url 'addOrder' %} class='{{addOrder}}'>Add Order</a>
+      
+      <!-- <a href='' class='{{sprofile_active}}'>NGO Profile</a> -->
+      <a href='myModal69' data-toggle="modal" data-target="#myModal69">Log Out</a>
+    
+      
+
+    </div>
+</div>    
+
+<!-- Modal -->
+            <div class="modal fade" id="myModal69" role="dialog">
+              <div class="modal-dialog">
+              
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title" style='color: black'>Log Out</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    
+                  </div>
+                  <div class="modal-body" style='color: black'>
+                      Are you sure you want to Log Out?
+                  </div>
+                  <div class="modal-footer">
+                    <a href=''ta-dismiss="modal" style="background-color: #0D98BA; border-color: #0D98BA;">Close</a>
+                    <a href={% url 'logout_view' %}><button type="button" class="btn btn-primary" style="background-color: #0D98BA; border-color: #0D98BA;">Log Out</button></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+<div class="modal fade" id="myModal6969" role="dialog">
+              <div class="modal-dialog">
+              
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title" style='color: black'>DELETE</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body" style='color: black'>
+                      Are you sure you want to delete your account? You will lose it permanently.
+                  </div>
+                  <div class="modal-footer">
+                    <a href=mary" data-dismiss="modal" style="background-color: #0D98BA; border-color: #0D98BA; color: white;">Close</a>
+
+                  </div>
+                </div>
+              </div>
+            </div>

@@ -1,0 +1,48 @@
+{% extends 'Client/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% include 'Client/navbar.html' %}
+<style>
+.alert-custom{
+  background-color: rgb(209, 0, 0, 0.3);
+  color:rgb(141, 0, 0);
+  font-weight: bold;
+    }
+
+
+ .btn{
+  background-color: #A0E7E5;
+}    
+
+
+</style>    
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class='col-12 col-md-8'>
+        {% if messages %}
+        {% for x in messages %}
+                <div class="alert alert-custom  fade in alert-dismissable show" style="margin-top:18px;font-size: 15px;font-weight: bold;background-color: rgb(99, 99, 99);color: whitesmoke;">
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true" style="font-size:20px">×</span>
+                  </button><center>{{x}}</center>
+                </div>
+         {% endfor %}
+         {% endif %}
+         <div class="form-out" >    
+          <h2 style="padding: 15px; font-weight: bold;border-bottom: 2px solid #A0E7E5;">Sign In</h2><br>
+          <form method="POST">
+        
+        <div style="text-align: left;">
+        {% csrf_token %}
+        {{form|crispy}}
+        <a href='' style="color: #D10000;">Forgot your Password?</a>
+    </div><br>
+        <button type="submit" class="btn ">Login</button><br> <br>
+    </form>
+    <small class='text-muted'>Don't have an acoount? You can create one in just few steps.</small> <a href={% url "register" %} style="color: red;">Create Account</a>
+</div>
+</div>
+</div>
+</div>
+{% endblock content %}

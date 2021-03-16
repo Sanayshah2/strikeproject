@@ -1,0 +1,60 @@
+<style>
+    #X{
+      color: #FF5C5C;
+    }
+  
+    .navbar-nav .nav-item a.nav-link{
+      color: white;
+    }
+  </style>
+  <nav class="navbar  navbar-dark sticky-top static-top" >
+      <div class="container">
+        <a class="navbar-brand" href={% url 'home' %}>
+              <h4 style="padding-top: 5px;font-weight: bold;">Manage<span id='X' style="font-style: bold">In</span></h4>
+            </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="color: ;">
+              <span class="navbar-toggler-icon" style="color: "></span>
+            </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive" >
+          <ul class="navbar-nav sm-auto">
+            <li class="nav-item ">
+              <!-- <a class="nav-link" href={% url "home" %} >Home -->
+                    <span class="sr-only">(current)</span>
+                  <!-- </a> -->
+            </li>
+            <li class="nav-item">
+              <!-- <a class="nav-link" href=>Admin Signup</a> -->
+            </li>
+            <!--<li class="nav-item">
+              <a class="nav-link" href=>Map</a>
+            </li>-->
+            <li class="nav-item">
+              <!-- <a class="nav-link" href=>Admin Login</a> -->
+            </li>
+            <li class="nav-item">
+              <a href={% url 'home' %} class="nav-link" href= >Home</a>
+            </li>
+            {% if not user.is_authenticated %}
+            <li class="nav-item">
+              <a href={% url 'register' %} class="nav-link" href= >Signup</a>
+            </li>
+            <li class="nav-item">
+              <a href={% url 'login' %} class="nav-link"  href=>Login</a>
+            </li>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a href={% url 'ClientDashboard' %} class="nav-link"  href=>Client dashboard</a>
+            </li>{% endif %}
+            <li class="nav-item">
+              <a class="nav-link"  href=>About Us</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a href={% url 'logout_view' %} class="nav-link"  >Logout</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>

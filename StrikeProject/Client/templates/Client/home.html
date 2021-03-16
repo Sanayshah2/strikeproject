@@ -1,0 +1,200 @@
+{% extends 'Client/base.html' %}
+{% load static %}
+
+{% block style %}
+
+<style>
+    .requirement-container{
+        border: 1px solid lightgrey ;
+        background-color: white;
+        /* border-radius: 5px; */
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    body{
+        background-color: whitesmoke;
+    }
+
+    .btn{
+        background-color: #A0E7E5;
+        color: darkgrey;
+    }
+    .by{
+        font-size: 12px;
+        color: gray;
+    }
+
+    .title{
+        font-weight: bold;
+        /* color: darkgray; */
+        font-size: 24px;
+        padding-top: 15px;
+        padding-left: 15px;
+    }
+</style>
+
+{% endblock style %}
+
+
+
+
+{% block content %}
+{% include 'Client/navbar.html' %}
+<!-- <div>
+    <img src='https://www.cityflowers.co.in/blog/wp-content/uploads/2018/11/NGO-1500x500.jpg' style="width: 100%;">
+</div> -->
+{% if messages %}
+        {% for x in messages %}
+                <div class="alert alert-custom  fade in alert-dismissable show" style="margin-top:18px;font-size: 15px;font-weight: bold;background-color: rgb(99, 99, 99);color: whitesmoke;">
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true" style="font-size:20px">×</span>
+                  </button><center>{{x}}</center>
+                </div>
+         {% endfor %}
+         {% endif %}
+    <div class="container">
+        <h3 class="p-2">Welcome to your inventory management portal </h3>
+         {% if user.is_authenticated %}
+        <h3 class="p-3 m-2" style="background-color:#A0E7E5;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); "><b>Welcome,{{user.username}}</b></h3>
+        {% endif %}
+        <!-- <p class="title">Some People need you...</p> -->
+        <!-- <h4 class="title">Listed Requirements</h4><br> -->
+        <!-- <div class="pl-2 form-group">
+        <select class=" form-control-sm " name='cat_select' id="cat_select" onchange="filter()">
+            <option value='all' >All</option>
+            {% for category in categories %}
+                <option value={{category.id}} >{{category.help_category}}</option>
+            {% endfor %}
+        </select>
+    </div> -->
+    <!-- <h5 class="pl-3"><b>Filter your search:</b></h5>
+    <div class="pl-3 row ">
+    <div class="col-4 ">
+        <select class="form-control-sm" id="cat_select" onchange="filter()">
+            <option value='all'>All</option>
+            {% for c in categories %}
+            <option value='{{c.id}}'>{{c.help_category}}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div> -->
+        {% if requirements %}
+
+        <div class="row" id='all'>
+            <div class="col-12"><h4 class="title">All Requirements</h4></div>
+        {% for r in requirements %}
+            
+                
+                    <div class="col-12 col-sm-6 col-md-4">
+
+                        <div class="m-3 p-4 requirement-container">
+                            <h5><b>{{r.requirement_heading}}</b></h5>
+                            <hr>
+                            <p>{{r.requirement_content|truncatewords:20}}</p>
+                            <!-- <p class='by'>by Aapka Sahara Foundation</p> -->
+                            <div class="row"><div class="col-12"><p class='by'>by {{r.ngo}}</p></div></div>
+                            {% if r.amount %}
+                            <div class="row"><div class="col-12"><p class='by'>Required:{{r.amount}}</p></div></div>
+                            {% else %}
+                            <div class="row"><div class="col-12"><p class='by'>Total Required:{{r.quantity}}</p></div></div>
+                            {% endif %}
+                            <div class="row"><div class="col-12"><p class='by'>Fulfilled :{{r.requirement_fulfilled}}</p></div></div>
+
+                            <div class="row"><div class="col-12"><a href="/donor-requirement-view/{{r.id}}/" ><p>View</p></a></div></div>
+                            <button class="btn btn-sm "><a href="/requirement-fulfillment/{{r.id}}/">Donate Now</a></button>
+                        </div>
+                    </div>
+                
+            
+
+        {% endfor %}
+        </div>
+        
+        {% else %}
+
+
+        <!-- <h1>No requirements</h1> -->
+
+
+
+        {% endif %}
+
+        {% for category in categories %}
+
+        {% if requirements %}
+        
+        <div class="row" id='category_{{category.id}}'  hidden>
+           <div class="col-12"> <h4 class="title">{{category.help_category}}</h4></div>
+            
+        {% for r in requirements %}
+            
+                {% if category.id == r.category.id  %}
+                    <div class="col-12 col-sm-6 col-md-4">
+
+                        <div class="m-3 p-4 requirement-container">
+                            <h5><b>{{r.requirement_heading}}</b></h5>
+                            <p>{{r.requirement_content}}</p>
+                            <!-- <p class='by'>by Aapka Sahara Foundation</p> -->
+                            <div class="row"><div class="col-12"><p class='by'>by {{r.ngo}}</p></div></div>
+                            <div class="row"><div class="col-12"><a href="" ><p>View</p></a></div></div>
+                            <button class="btn btn-sm ">Donate Now</button>
+                        </div>
+                    </div>
+                
+            {% endif %}
+
+        {% endfor %}
+        </div>
+        
+        {% else %}
+
+
+        <!-- <h1>No requirements</h1> -->
+
+
+
+        {% endif %}
+
+
+
+        {% endfor %}
+
+
+    </div>
+        
+
+
+<script>
+    
+
+
+    
+    
+
+
+    
+
+    function filter(){
+    
+        
+        var x=document.getElementById('cat_select').value;
+        console.log(typeof(x));
+        if(x == 'all'){
+            document.getElementById('all').hidden=false;
+        }
+        else{
+        document.getElementById('category_'+x).hidden=false;
+        document.getElementById('all').hidden=true;
+        }
+
+
+        
+
+        
+        
+        
+    
+        }
+</script>
+
+ {% endblock content %}

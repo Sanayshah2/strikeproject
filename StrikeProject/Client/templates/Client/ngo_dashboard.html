@@ -1,0 +1,209 @@
+{% extends 'Client/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block style %}
+
+<style>
+    .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+    .requirement-container{
+        border: 1px solid lightgrey ;
+        background-color: white;
+        /* border-radius: 5px; */
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    body{
+        background-color: whitesmoke;
+    }
+
+    .btn{
+        background-color: #A0E7E5;
+        color: darkgrey;
+    }
+    .by{
+        font-size: 12px;
+        color: gray;
+    }
+
+    .title{
+
+        font-weight: bold;
+    }
+    .cards{
+        background-color: white;
+        padding: 20px;
+        box-shadow: 10px 10px 5px #c0c0c0;
+        /* border: 1px solid; */
+    }
+
+    .nom{
+        font-weight: bolder;
+    }
+
+    .under{
+        width: 150px;
+        border-bottom: 6px solid rgb(80, 79, 79);
+    }
+</style>
+
+
+{% endblock style %}
+
+{% block content %}
+{% include 'Client/ngo_sidebar.html' %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js" integrity="sha256-JtQPj/3xub8oapVMaIijPNoM0DHoAtgh/gwFYuN5rik=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js" integrity="sha256-jDnOKIOq2KNsQZTcBTEnsp76FnfMEttF6AV2DF2fFNE=" crossorigin="anonymous"></script>
+        
+
+ 
+        
+
+      <!-- Page content -->
+      <div class="content ">
+        
+         
+        {% if messages %}
+        {% for x in messages %}
+                <div class="alert alert-custom  fade in alert-dismissable show " style="margin-top:18px;background-color: rgb(99, 99, 99);color: whitesmoke;font-weight: bold;font-size: 15px;">
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true" style="font-size:20px">×</span>
+                  </button><center>{{x}}</center>
+                </div>
+         {% endfor %}
+     {% endif %}
+
+
+     <div class="container">
+        
+      <!-- <p class="title">Some People need you...</p> -->
+      <h3 class="mt-3" style="font-weight: bolder;">Welcome to your inventory management portal </h3>
+      <div class="under"></div><br>
+      
+  </div>
+
+  <div class="mt-3">
+      <div class="row">
+          <div class="col-12 col-md-4">
+              <div class="m-2 cards">
+                  <h4>Capacity</h4>
+                  <h1 class="nom">{{client.capacity}}</h1>
+
+              </div>
+
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="m-2 cards">
+                <h4>Your Product</h4>
+                <h1 class="nom">{{client.product}}</h1>
+
+            </div>
+
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="m-2 cards">
+                <h4>Your Company</h4>
+                <h1 class="nom">{{client.company}}</h1>
+
+            </div>
+
+        </div>
+
+      </div>
+      
+  </div>
+  <div>
+    <span class="container mt-4" style="font-weight: bolder;">Currently filled capacity:{{count1.count}}<span class="ml-3" style="font-weight: 100;">(This result is {{count1.accuracy}}% accurate)</span></span>
+      <h3 class="container mt-4" style="font-weight: bolder;">Total Orders this month:{{tq}}</h3>
+      <h3 class="container mt-4" style="font-weight: bolder;color: grey;">Ordering suggested: No</h3><br>
+      <div class="container" style="display:inline-block;">
+    <span><p style="font-weight: bolder;font-size: 20px;">Automatic ordering: </p>
+        <label class="switch">
+        <input type="checkbox" checked>
+        <span class="slider round"></span>
+      </label></span>
+    
+     
+    </div>
+  </div>
+  <script>
+    function toggle(button) {
+   switch (button.value) {
+       case "ONN":
+           button.value = "OFF";
+           break;
+       case "OFF":
+           button.value = "ONN";
+           break;
+   }
+}
+</script>
+                
+                
+
+
+              </div >
+        
+
+
+{% endblock content %}

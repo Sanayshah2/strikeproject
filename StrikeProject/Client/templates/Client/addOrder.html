@@ -1,0 +1,102 @@
+{% extends 'Client/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% include 'Client/ngo_sidebar.html' %}
+<script>      
+  function checkIfYes() {
+      if (document.getElementById('related').value == 'Faculty') {
+        document.getElementById('extra').style.display = '';
+        document.getElementById('branches').disabled = false;
+      } else {
+        document.getElementById('extra').style.display = 'none';
+  }
+}
+</script>
+
+<style>
+.alert-custom{
+  background-color: lightgray;
+  color:black;
+  
+    }
+    .btn{
+      background-color: #0D98BA;
+    }
+
+    .title{
+        font-weight: bold;
+        
+    }
+
+
+</style>    
+
+
+
+<div class="content">
+        {% if messages %}
+        {% for x in messages %}
+        <div class="alert alert-custom  fade in alert-dismissable show " style="margin-top:18px;background-color: rgb(99, 99, 99);color: whitesmoke;font-weight: bold;font-size: 15px;">
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true" style="font-size:20px">×</span>
+                  </button><center>{{x}}</center>
+                </div>                
+         {% endfor %}
+     {% endif %}
+                <h4 class='pb-3 pt-3 title'>Add new Order:</h4>
+
+        <!-- <div id="form1"> -->
+        <!--  -->
+        <!-- <div class="p-2">
+        <small><sup>*</sup>Newly selected type appears in dropdown below</small>
+    </div> -->
+        <form method="POST">
+            {% csrf_token %}
+            <!-- <div class="form-group">
+                <label class="control-label" >Requirement type<sup>*</sup></label>
+                <select class="select form-control" onchange="switch_quant()" id='category' name='category' required>
+                    {% for c in categories %}
+                    <option value='{{c.help_category}}'>{{c.help_category}}</option>
+                    {% endfor %}
+    
+                </select><br>
+                <div class="form-group">
+                <input class="form-control" type='number' name='quantity' id='quantity' hidden placeholder="Quantity" />
+            </div>
+                <div class="form-group">
+                <input class="form-control" type='number' name='amount' id='amount' placeholder="Amount" required />
+            </div>
+            </div> -->
+            {{form|crispy}}
+
+
+                
+
+
+
+            <button type='submit'>Submit</button>
+        </form>
+
+    </div>
+    <script>
+        function switch_quant(){
+            x=document.getElementById('category').value;
+            if (x =='Financial'){
+                document.getElementById('amount').hidden=false;
+                document.getElementById('amount').required=true;
+                document.getElementById('quantity').hidden=true;
+                document.getElementById('quantity').required=false;
+            }
+            else{
+                document.getElementById('quantity').hidden=false;
+                document.getElementById('quantity').required=true;
+                document.getElementById('amount').hidden=true;
+                document.getElementById('amount').required=false;
+            }
+        }
+
+    </script>
+
+
+<!-- </div>    -->
+{% endblock %}
