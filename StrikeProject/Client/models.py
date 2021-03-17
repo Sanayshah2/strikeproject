@@ -9,6 +9,7 @@ class Client(models.Model):
     product=models.CharField(default='', max_length = 40, verbose_name='Product Name')
     company=models.CharField(default='', max_length = 40, verbose_name='Company Name')
     capacity = models.IntegerField(default=0, verbose_name="Inventory's Capacity (Number of Units)")
+    auto_order = models.BooleanField(default=False)
     def __str__(self):
         return f"{self.user.username}"
 

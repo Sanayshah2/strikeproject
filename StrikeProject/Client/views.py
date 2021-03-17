@@ -100,6 +100,10 @@ def ClientDashboard(request):
     client=Client.objects.get(user=request.user)
     count1=Count_table.objects.filter(user = request.user.username).last()
     orders=list(Order.objects.filter(client=client))
+    checked_val='i'
+    if client.auto_order == True:
+        checked_val='checked'
+    
     print(orders)
     tq=0
     for x in orders:
@@ -109,7 +113,8 @@ def ClientDashboard(request):
         'client':client,
         'count1':count1,
         'tq':tq,
-        'dashboard':'active'
+        'dashboard':'active',
+        'checked': checked_val
 
     }
 
@@ -160,6 +165,21 @@ def addOrder(request):
     else:
         form=AddOrderForm()
     return render(request,'Client/addOrder.html',{'form':form,'addOrder':'active'})
+
+
+def AutoOrder(request):
+
+    if request.method=='POST':
+        client=Client.objects.get(user=request.user)
+        if client.auto_order==True:
+            client.auto_order=False
+        else:
+            client.auto_order=True
+
+
+        
+        client.save()
+        return redirect('ClientDashboard')
 
 
 

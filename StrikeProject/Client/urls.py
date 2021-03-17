@@ -13,6 +13,7 @@ urlpatterns = [
     path('add-order/', views.addOrder, name='addOrder'),
     path('client-dashboard/', views.ClientDashboard, name='ClientDashboard'),
     path('order-history/', views.OrderHistory, name='OrderHistory'),
+    path('auto-order/', views.AutoOrder, name='AutoOrder'),
     # path('ngo-requirement-view/<int:rid>/', views.ngoRequirementView, name='ngoRequirementView'),
     # path('donor-requirement-view/<int:rid>/', views.donorRequirementView, name='donorRequirementView'),
     # path('donor-dashboard/', views.donorDashboard, name='donorDashboard'),
