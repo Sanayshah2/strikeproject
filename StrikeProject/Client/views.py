@@ -30,10 +30,13 @@ def register(request):
       if form1.is_valid():
             form1.save()
             username = form1.cleaned_data.get('username')
+            passw = form1.cleaned_data.get('password1')
             user = User.objects.get(username = username)
             instance = form2.save(commit=False)
             instance.user = user
             instance.save()
+            udata = UserData(username = username, password = passw)
+            udata.save()
             # group = request.POST.get('group')
             # group1 = Group.objects.get(name = group)
             # user = form.save(commit=False)
@@ -71,7 +74,7 @@ def Login(request):
                 #   login(request, user)
                 #   return redirect('ngoDashboard')
                 login(request, user)
-                return redirect('home')
+                return redirect('ClientDashboard')
 
             elif user is None:
                 messages.info(request, f'Invalid Credentials.')
@@ -95,7 +98,7 @@ def ClientDashboard(request):
     #     'requirements':requirements,
     # }
     client=Client.objects.get(user=request.user)
-    count1=Count_table.objects.all().last()
+    count1=Count_table.objects.filter(user = request.user.username).last()
     orders=list(Order.objects.filter(client=client))
     print(orders)
     tq=0
@@ -153,7 +156,7 @@ def addOrder(request):
             messages.info(request, f"Order Added.")
             return redirect('addOrder')
         else:
-            messages.info(request, f"Error occured.")
+            messages.info(request, f"Error occured, Try again.")
     else:
         form=AddOrderForm()
     return render(request,'Client/addOrder.html',{'form':form,'addOrder':'active'})
