@@ -1,0 +1,19 @@
+asgiref==3.3.1
+certifi==2020.12.5
+chardet==4.0.0
+Django==3.1.7
+django-client==100.99.99
+django-crispy-forms==1.11.1
+idna==2.10
+mysql-connector-python==8.0.23
+mysqlclient @ file:///C:/Users/main/Desktop/strikeproject/mysqlclient-1.4.6-cp38-cp38-win32.whl
+numpy==1.20.1
+opencv-python==4.5.1.48
+pandas==1.2.3
+protobuf==3.15.6
+python-dateutil==2.8.1
+pytz==2021.1
+requests==2.25.1
+six==1.15.0
+sqlparse==0.4.1
+urllib3==1.26.4
