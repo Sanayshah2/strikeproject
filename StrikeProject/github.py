@@ -89,7 +89,7 @@ def live_count():
     i=0
     count_list=[]
 
-    while i < 100:
+    while i < 500:
         # Capture frame-by-frame
         ret, captured_frame = cap.read()
         output_frame = captured_frame.copy()
@@ -99,11 +99,13 @@ def live_count():
         # First blur to reduce noise prior to color space conversion
         captured_frame_bgr = cv2.medianBlur(captured_frame_bgr, 3)
         # Convert to Lab color space, we only need to check one channel (a-channel) for red here
-        captured_frame_lab = cv2.cvtColor(captured_frame_bgr, cv2.COLOR_BGR2Lab)
+        # captured_frame_lab = cv2.cvtColor(captured_frame_bgr, cv2.COLOR_BGR2Lab)
+        hsv = cv2.cvtColor(captured_frame, cv2.COLOR_BGR2HSV)
         # Threshold the Lab image, keep only the red pixels
         # Possible yellow threshold: [20, 110, 170][255, 140, 215]
         # Possible blue threshold: [20, 115, 70][255, 145, 120]
-        captured_frame_lab_red = cv2.inRange(captured_frame_lab, np.array([20, 150, 150]), np.array([190, 255, 255]))
+        # captured_frame_lab_red = cv2.inRange(captured_frame_lab, np.array([20, 150, 150]), np.array([190, 255, 255]))
+        captured_frame_lab_red = cv2.inRange(hsv, np.array([110, 50, 50]), np.array([130, 255, 255]))
         # Second blur to reduce more noise, easier circle detection
         captured_frame_lab_red = cv2.GaussianBlur(captured_frame_lab_red, (5, 5), 2, 2)
         # Use the Hough transform to detect circles in the image

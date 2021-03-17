@@ -99,22 +99,26 @@ def ClientDashboard(request):
     # }
     client=Client.objects.get(user=request.user)
     count1=Count_table.objects.filter(user = request.user.username).last()
+    # count1=count1[-1]
     orders=list(Order.objects.filter(client=client))
     checked_val='i'
     if client.auto_order == True:
         checked_val='checked'
     
-    print(orders)
+    acc=count1.accuracy//5
     tq=0
+    # acc=count1.accuracy
+    # print(acc)
     for x in orders:
         tq=tq+x.quantity
-    print(tq)
+    # print(tq)
     context={
         'client':client,
         'count1':count1,
         'tq':tq,
         'dashboard':'active',
-        'checked': checked_val
+        'checked': checked_val,
+        'accuracy':acc
 
     }
 
