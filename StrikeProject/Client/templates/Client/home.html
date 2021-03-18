@@ -31,6 +31,11 @@
         padding-top: 15px;
         padding-left: 15px;
     }
+    .down-cards{
+        color: whitesmoke;
+        border-radius: 10px;
+        
+    }
 </style>
 
 {% endblock style %}
@@ -52,11 +57,13 @@
                 </div>
          {% endfor %}
          {% endif %}
+
+               <img src="https://www.netsuite.com/portal/assets/img/business-articles/inventory-management/bnr-inventory.jpg" alt="" height=400px" width="100%" >
     <div class="container">
-        <h3 class="p-2">Welcome to your inventory management portal </h3>
-         {% if user.is_authenticated %}
-        <h3 class="p-3 m-2" style="background-color:#A0E7E5;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); "><b>Welcome,{{user.username}}</b></h3>
-        {% endif %}
+        <!-- <h3 class="p-2">Welcome to your inventory management portal </h3> -->
+         <!-- {% if user.is_authenticated %}
+        <h3 class="p-3 m-2" style="        background-image: linear-gradient(to bottom right, #136a8a, #267871);box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); "><b>Welcome,{{user.username}}</b></h3>
+        {% endif %} -->
         <!-- <p class="title">Some People need you...</p> -->
         <!-- <h4 class="title">Listed Requirements</h4><br> -->
         <!-- <div class="pl-2 form-group">
@@ -161,6 +168,26 @@
 
 
     </div>
+    <!-- <div class="row mt-5" style="padding: 15px;background-color: gray;" >
+        <div class="col-3">
+
+               <center> <a href={% url 'login' %} class="down-cards"  href=>Login</a></center>
+              
+
+        </div>
+        <div class="col-3">
+           <center> <a href={% url 'register' %} class="down-cards" href= >Signup</a></center>
+            
+            
+        </div>
+        <div class="col-3">
+            <center> <a href={% url 'home' %} class="down-cards" href= >Home</a></center>
+            
+        </div>
+        <div class="col-3">
+            
+        </div>
+    </div> -->
         
 
 

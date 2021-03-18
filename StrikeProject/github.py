@@ -5,6 +5,11 @@ import mysql.connector
 from tkinter import *
 import time as t
 
+from datetime import datetime
+
+# datetime object containing current date and time
+now = datetime.now()
+
 #establishing the connection
 conn = mysql.connector.connect(user='root', password='', host='localhost', database='strike_project')
 #Creating a cursor object using the cursor() method
@@ -140,10 +145,10 @@ def live_count():
     #SELECT id from client_client where user_id = (SELECT id from auth_user where username = username_verification.get())
 
 
-    mySql_insert_query = """INSERT INTO client_count_table (user, count,accuracy) 
-                                    VALUES (%s,%s,%s) """
+    mySql_insert_query = """INSERT INTO client_count_table (user, count,accuracy,time_stamp) 
+                                    VALUES (%s,%s,%s,%s) """
 
-    record = (username_verification.get(), count2,accuracy)
+    record = (username_verification.get(), count2,accuracy,now)
 
 
 

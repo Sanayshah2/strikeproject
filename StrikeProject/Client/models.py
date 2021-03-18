@@ -52,6 +52,7 @@ class Count_table(models.Model):
     user = models.CharField(default='', max_length=30)
     count = models.IntegerField()
     accuracy = models.IntegerField()
+    time_stamp = models.DateTimeField(default=None)
     def __str__(self):
         return f"{self.count}"
 

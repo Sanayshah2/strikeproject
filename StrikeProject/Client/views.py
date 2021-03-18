@@ -177,8 +177,10 @@ def AutoOrder(request):
         client=Client.objects.get(user=request.user)
         if client.auto_order==True:
             client.auto_order=False
+            messages.info(request, f"Auto ordering deactivated.")
         else:
             client.auto_order=True
+            messages.info(request, f"Auto ordering enabled.")
 
 
         
