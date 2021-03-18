@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
 # from django.db.models import Q
 from django.utils import timezone
+import datetime
 # from .decorators import *
 
 # Create your views here.
@@ -100,7 +101,8 @@ def ClientDashboard(request):
     client=Client.objects.get(user=request.user)
     count1=Count_table.objects.filter(user = request.user.username).last()
     # count1=count1[-1]
-    orders=list(Order.objects.filter(client=client))
+    start_of_month = datetime.date.today().replace(day=1)
+    orders=Order.objects.filter(client=client, date_posted__gte = start_of_month)
     checked_val='i'
     if client.auto_order == True:
         checked_val='checked'
@@ -135,6 +137,10 @@ def OrderHistory(request):
     return render(request,'Client/order_history.html',context)
 
 def addOrder(request):
+    client = Client.objects.get(user = request.user)
+    capacity = client.capacity
+    live = Count_table.objects.filter(user = request.user.username).last().count
+    available = capacity - live
     # categories= get_all_help_categories()
     if request.method=='POST':
         # ngo=Ngo.objects.get(user=request.user)
@@ -149,7 +155,10 @@ def addOrder(request):
         form=AddOrderForm(request.POST)
         if form.is_valid():
             instance=form.save(commit=False)
-
+            quantity = instance.quantity
+            if quantity>available:
+                messages.info(request, 'Available capacity is less than the quantity ordered. Please check again.')
+                return redirect('addOrder')
             # if category == 'Financial':
             #     amount=request.POST.get('amount')
             #     instance.amount=amount
@@ -159,7 +168,6 @@ def addOrder(request):
 
             # #print(category1)
             # instance.category=category1
-            client = Client.objects.get(user = request.user)
             instance.client = client
             instance.save()
             messages.info(request, f"Order Added.")

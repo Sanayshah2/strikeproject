@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Client(models.Model):
-
     user = models.OneToOneField(User,on_delete=models.CASCADE,default='')
     product=models.CharField(default='', max_length = 40, verbose_name='Product Name')
     company=models.CharField(default='', max_length = 40, verbose_name='Company Name')
@@ -15,8 +14,17 @@ class Client(models.Model):
 
 
 class Order(models.Model):
+    sellerchoices = {
+        ('V Paras Corp', 'V Paras Corp'),
+        ('AP Enterprises', 'AP Enterprises'), 
+        ('MS Brothers', 'MS Brothers'),
+        ('Timex Belting', 'Timex Belting'),
+        ('Reliance LTD', 'Reliance LTD'),
+        ('3i Infotech', '3i Infotech')
+    }
+
     client=models.ForeignKey(Client, on_delete=models.CASCADE, default='')
-    seller_name = models.CharField(max_length=40, default='', verbose_name="Seller's name")
+    seller_name = models.CharField(max_length=40, default='', verbose_name="Seller's name", choices=sellerchoices)
     message = models.TextField(verbose_name='Message to the seller (optional)', null='True', blank='true')
     quantity=models.IntegerField(default=0)
     date_posted =models.DateTimeField(default=timezone.now)
